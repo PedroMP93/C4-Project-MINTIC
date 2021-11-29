@@ -32,7 +32,7 @@ const insertarVisita = async(fecha, finca, lote, labor, area, tecnico) => {
         body: JSON.stringify({visita2send})
     });
     
-    return await response.json();
+    //return await response.json();
      
  };
 
@@ -40,20 +40,23 @@ const insertarVisita = async(fecha, finca, lote, labor, area, tecnico) => {
 // console.log(visita0);
 
 const filtrarResultados = async (key, value) => {
-    //const fetch = require("node-fetch");
+    const fetch = require("node-fetch");
     let response = await fetch('https://misiontic2022upb.vercel.app/api/agricultural-inputs/technical-visit');
     let visitasAPI = await response.json();
         
     let filtrados = [];
     const objFiltrado = Object.entries(visitasAPI);
-    const encontrado = objFiltrado.filter(function ([key1, value1]){
-        return key1 == key;
-        return value1.toLowerCase() == value.toLowerCase();
+    
+    visitasAPI.forEach(objeto => {
+        const key1 = Object.keys(visitasAPI).filter(key1=>visitasAPI[key1] === value.toLowerCase());
+        filtrados.push(key1);
+        console.log(objeto);
     });
 
-    const newVisitas = Object.fromEntries(encontrado);
-    return newVisitas;
-    console.log("Hola: "+ newVisitas);
+    console.log(filtrados);
+    return filtrados;
+
+    
 };
 
 
@@ -61,8 +64,8 @@ module.exports.filtrarResultados = filtrarResultados;
 module.exports.insertarVisita = insertarVisita;
 //module.exports.visitas = visitas;
 
-/* let vistaAgregada = insertarVisita('2021-11-27','Altagracia','Lote 43','primera abonada','4','Anibal Zamora2');
+//let vistaAgregada = insertarVisita('2021-11-27','Altagracia','Lote 43','primera abonada','4','Anibal Zamora2');
 let arreglo = filtrarResultados("finca", "Altagracia");
 console.log("Resultado: ......");
-//console.log(arreglo);
-console.log(vistaAgregada); */
+console.log(arreglo);
+//console.log(vistaAgregada);
