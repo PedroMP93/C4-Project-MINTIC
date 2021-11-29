@@ -1,4 +1,10 @@
-const visitas = [];
+//import fetch from 'cross-fetch';
+//import fetch from 'node-fetch';
+//global.fetch = require("node-fetch");
+//import "isomorphic-fetch";
+//const fetch = require("node-fetch");
+
+//const visitas = [];
 
 /* const visitas = [
     {fecha: "2021-11-12", finca: "Altagracia", lote: "lote 4", labor: "primera abonada", area: "4", tecnico: "Anibal Zamora"},
@@ -9,58 +15,54 @@ const visitas = [];
     {fecha: "2021-12-12", finca: "la indomable", lote: "lote 43", labor: "capacitacion", area: "1", tecnico: "Omar Sepulveda"},
 ]; */
 
-const insertarVisita = (fecha, finca, lote, labor, area, tecnico) => {
+const insertarVisita = async(fecha, finca, lote, labor, area, tecnico) => {
     // Se crea la visita de un nuevo usuario como objeto
-    let visita = {
-        "fecha": fecha,
-        "finca": finca, 
-        "lote": lote, 
-        "labor": labor, 
-        "area": area, 
-        "tecnico": tecnico
-    }
-    visitas.push(visita);
+    //const fetch = require('node-fetch');
+    let visita2send = {fecha, finca, lote, labor, area, tecnico};
+    
+
+    //let fetch = await import('node-fetch');
+    let response = await fetch("https://misiontic2022upb.vercel.app/api/agricultural-inputs/technical-visit", 
+    {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({visita2send})
+    });
+    
+    return await response.json();
+     
  };
 
-// const visita0 = insertarVisita("2021-11-12","Altagracia","Lote 4","primera abonada","4","Anibal Zamora");
+// const visita0 = insertarVisita("2021-11-27","Altagracia","Lote 4","primera abonada","4","Anibal Zamora");
 // console.log(visita0);
 
-const filtrarResultados = (key, value) => {
+const filtrarResultados = async (key, value) => {
+    //const fetch = require("node-fetch");
+    let response = await fetch('https://misiontic2022upb.vercel.app/api/agricultural-inputs/technical-visit');
+    let visitasAPI = await response.json();
+        
     let filtrados = [];
+    const objFiltrado = Object.entries(visitasAPI);
+    const encontrado = objFiltrado.filter(function ([key1, value1]){
+        return key1 == key;
+        return value1.toLowerCase() == value.toLowerCase();
+    });
 
-    for(let i in visitas){
-        /* console.log("Contador: "+i);
-        console.log(visitas[i]);
- */
-        let visita = visitas[i];
-        for(let keyVal in visita){
-            let key1 = keyVal;
-            let value1 = visita[keyVal];
-
-            if(key === key1 && value.toLowerCase() === value1.toLowerCase()){
-                filtrados.push(visita);
-            }
-
-            
-            /* console.log("Key= "+key1);
-            console.log("Value= "+value1); */
-        }
-        /* console.log(visitas[i]);
-        console.log(value1.toLowerCase());*/
-        //console.log(filtrados); 
-        
-        
-    }
-    //console.log(filtrados);
-    return filtrados;
-
-    //return console.log("Llave "+key1+" encontrad@!");
+    const newVisitas = Object.fromEntries(encontrado);
+    return newVisitas;
+    console.log("Hola: "+ newVisitas);
 };
+
 
 module.exports.filtrarResultados = filtrarResultados;
 module.exports.insertarVisita = insertarVisita;
-module.exports.visitas = visitas;
+//module.exports.visitas = visitas;
 
-/* let arreglo = filtrarResultados('finca', 'Altagracia');
+/* let vistaAgregada = insertarVisita('2021-11-27','Altagracia','Lote 43','primera abonada','4','Anibal Zamora2');
+let arreglo = filtrarResultados("finca", "Altagracia");
 console.log("Resultado: ......");
-console.log(arreglo); */
+//console.log(arreglo);
+console.log(vistaAgregada); */

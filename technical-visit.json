@@ -1,0 +1,7 @@
+[
+    {"fecha":"2021-03-24", "finca":"Altagracia", "lote":"Lote 4","labor":"primera abonada","area":4, "tecnico": "Anibal Zamora"},
+    {"fecha":"2021-03-30", "finca":"La primavera", "lote":"Lote 5","labor":"primera abonada","area":8, "tecnico": "Anibal Zamora"},
+    {"fecha":"2021-07-24", "finca":"El encanto", "lote":"Lote 1","labor":"primera abonada","area":10, "tecnico": "Anibal Zamora"},
+    {"fecha":"2021-10-24", "finca":"La Macarena", "lote":"Lote 2","labor":"primera abonada","area":15, "tecnico": "Anibal Zamora"}
+]
+    
