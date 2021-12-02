@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
+const port = 5000;
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 
 app.get('/', (req, res)=>{
-    res.send("Hello World");
+    res.send("Welcom to Express");
 });
 
 app.post('/', (req,res)=>{
@@ -13,8 +14,8 @@ app.post('/', (req,res)=>{
 });
 
 
-app.listen(5000,() => {
-    console.log("Started on PORT 5000");
+app.listen(port,() => {
+    console.log(`Started on PORT ${port}`);
 });
 
 module.exports = app;

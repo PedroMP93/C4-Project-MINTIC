@@ -1,0 +1,22 @@
+{
+  "name": "c4-project-mintic",
+  "version": "1.0.0",
+  "description": "Sprint4",
+  "main": "src.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PedroMP93/C4-Project-MINTIC.git"
+  },
+  "author": "Grupo7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PedroMP93/C4-Project-MINTIC/issues"
+  },
+  "homepage": "https://github.com/PedroMP93/C4-Project-MINTIC#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
