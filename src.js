@@ -3,18 +3,17 @@ const app = express();
 //const port = 5000;
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-global.technical_visit = require('./technical-visit.json');
+//global.technical_visit = require('./technical-visit.json');
 
 
-app.get('/api/agricultural-inputs/technical_visit',
+app.get('/api/agricultural-inputs/technical-visit',
     (req, res)=>{
     //console.log(visitasAPI);
-
-    return res.json(technical_visit);
+    res.json(technical_visit);
 });
 
 
-app.post('/api/agricultural-inputs/technical_visit', (req,res)=>{
+/*app.post('/api/agricultural-inputs/technical_visit', (req,res)=>{
     const fecha = req.body.fecha; 
     const finca = req.body.finca; 
     const lote = req.body.lote; 
@@ -35,7 +34,13 @@ app.post('/api/agricultural-inputs/technical_visit', (req,res)=>{
 
     return res.send(visita);
 
-});
+});*/
+
+app.post("/api/agricultural-inputs/technical-visit", (req, res) => {
+    const newRange = req.body;
+    technical_visit.push(newRange);
+    res.status(200).json(technical_visit);
+  });
 
 /*app.listen(port,() => {
     console.log(`Started on PORT ${port}`);
