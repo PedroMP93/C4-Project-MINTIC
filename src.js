@@ -1,49 +1,54 @@
-const express = require('express');
-const app = express();
-//const port = 5000;
-app.use(express.urlencoded({extended: false}));
-app.use(express.json());
-//global.technical_visit = require('./technical-visit.json');
+const historicoTecnico = async () => {
+    //const fetch = require("node-fetch");
+    let response = await fetch("https://misiontic2022upb.vercel.app/api/agricultural-inputs/technical-visit");
+    let visitasAPI = await response.json();
+    
+    //  ------------{tecnico: nombre,visitas: cantidad, areatotal:cantidad }
+    const arregloVisitas = [];
+    const res = {};
+    visitasAPI.forEach((obj) => {
+        const tecnico = `${obj.tecnico}`;
+        if (!res[tecnico]) {
+            res[tecnico] = {tecnico, visitas: 0, areatotal: 0 };
+        };
+        res[tecnico].visitas += 1;
+        res[tecnico].areatotal += obj.area;
+    });
 
+    for(let i in res){
+        arregloVisitas.push(res[i]);
+    }
+   // console.log(arregloVisitas);
+    return arregloVisitas;
 
-app.get('/api/agricultural-inputs/technical-visit',
-    (req, res)=>{
-    //console.log(visitasAPI);
-    res.json(technical_visit);
-});
+   /*  let nombres = [];
+    let retorno = [];
+    let area = 0;
+    let visita = 0;
 
-
-/*app.post('/api/agricultural-inputs/technical_visit', (req,res)=>{
-    const fecha = req.body.fecha; 
-    const finca = req.body.finca; 
-    const lote = req.body.lote; 
-    const labor = req.body.labor; 
-    const area = req.body.area; 
-    const tecnico = req.body.tecnico;
-
-    const visita = {
-        'fecha': fecha,
-        'finca': finca,
-        'lote': lote,
-        'labor': labor,
-        'area': area,
-        'tecnico': tecnico
+    for(let variable of turisticSites){
+        if(!nombres.includes(variable.tecnico))
+            nombres.push(variable.tecnico);
     }
 
-    technical_visit.push(visita);
+    for(let tec of nombres){
+        for(let key of visitasAPI){
+            if(tec === key.tecnico){
+                area += key.area;
+                visita += 1; 
+            }
+        }
+        retorno.push({
+            "tecnico": tec,
+            "visitas": visita,
+            "areatotal": area
+        });
 
-    return res.send(visita);
+        area, visita = 0;
+    }
+    //console.log(retorno);
+    return retorno */
+};
 
-});*/
-
-app.post("/api/agricultural-inputs/technical-visit", (req, res) => {
-    const newRange = req.body;
-    technical_visit.push(newRange);
-    res.status(200).json(technical_visit);
-  });
-
-/*app.listen(port,() => {
-    console.log(`Started on PORT ${port}`);
-});*/
-
-module.exports = app;
+module.exports.historicoTecnico = historicoTecnico;
+//let arreglo2 = historicoTecnico();
